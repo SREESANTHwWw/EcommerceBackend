@@ -1,15 +1,10 @@
-const nodemailer = require("nodemailer");
+require("dotenv").config();
+const { Resend } = require("resend");
 
+
+const resend = new Resend(process.env.RESEND_API_KEY);
   const otpMail = async (email, otp, subject) => {
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-   port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-  });
+
 
   const htmlTemplate = `
   <!DOCTYPE html>
@@ -74,8 +69,8 @@ const nodemailer = require("nodemailer");
   </html>
   `;
 
-  await transporter.sendMail({
-    from: `"BENFATTO" <${process.env.EMAIL}>`,
+  await resend.emails.send({
+    from: "BENFATTO <no-reply@sreesanth.live>" ,
     to: email,
     subject: subject,
     html: htmlTemplate,
@@ -84,23 +79,7 @@ const nodemailer = require("nodemailer");
 
 
  const RegisterMail = async (email, firstname) => {
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-   port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-  });
-  transporter.verify((err) => {
-  if (err) {
-    console.error("❌ Email server error:", err.message);
-  } else {
-    console.log("✅ Email server ready");
-  }
-});
-
+ 
   const htmlTemplate = `
   <!DOCTYPE html>
   <html lang="en">
@@ -175,8 +154,8 @@ const nodemailer = require("nodemailer");
   </html>
   `;
 
-  await transporter.sendMail({
-    from: `"BENFATTO" <${process.env.EMAIL_USER}>`,
+  await resend.emails.send({
+    from: "BENFATTO <no-reply@sreesanth.live>",
     to: email,
     subject: "Registration Successful 🎉",
     html: htmlTemplate,

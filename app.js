@@ -1,4 +1,4 @@
-const express = require("express");
+
 const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./DB/ConnectDB");
@@ -12,7 +12,7 @@ const path = require("path");
 const SqlDbconnect = require("./DB/SqlDb");
 
 dotenv.config();
-
+const express = require("express");
 const app = express();
 
 app.use(cookieParser());
