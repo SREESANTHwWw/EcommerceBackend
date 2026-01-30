@@ -2,11 +2,13 @@ const nodemailer = require("nodemailer");
 
   const otpMail = async (email, otp, subject) => {
   const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
+    host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
   });
 
   const htmlTemplate = `
@@ -83,11 +85,13 @@ const nodemailer = require("nodemailer");
 
  const RegisterMail = async (email, firstname) => {
   const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
+    host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
   });
 
   const htmlTemplate = `
