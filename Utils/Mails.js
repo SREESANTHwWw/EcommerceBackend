@@ -93,6 +93,13 @@ const nodemailer = require("nodemailer");
     pass: process.env.EMAIL_PASS,
   },
   });
+  transporter.verify((err) => {
+  if (err) {
+    console.error("❌ Email server error:", err.message);
+  } else {
+    console.log("✅ Email server ready");
+  }
+});
 
   const htmlTemplate = `
   <!DOCTYPE html>
