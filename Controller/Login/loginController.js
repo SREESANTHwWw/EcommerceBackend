@@ -472,4 +472,23 @@ router.post("/forgot-password", async (req, res) => {
   }
 });
 
+router.patch("/update/user/:id", async(req,res)=>{
+  try {
+     const  userID = req.params.id
+      const {firstname,lastname, email,} =req.body
+     const Updateuser = await userLoginModel.findOne({userID})
+        Updateuser.lastname= req.body
+         await Updateuser.save
+     if(!Updateuser){
+      return res.status(401).json({err:"user not found"})
+     }
+     res.status(200).json({success:true,Updateuser})
+    
+  } catch (error) {
+     console.log(error);
+     
+    
+  }
+})
+
 module.exports = router;
