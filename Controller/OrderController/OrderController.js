@@ -56,6 +56,7 @@ const orderItems = items.map(item => {
 
   return {
     productId: product._id,
+    image:product.productImage[0],
     name: product.productName,
     qty: item.qty,
     price,

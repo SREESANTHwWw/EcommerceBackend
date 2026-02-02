@@ -8,7 +8,8 @@ const category = require("./Controller/CategoryControllter/CategoryController")
 const cartRoute =require("./Controller/CartController/CartController")
 const AddressAPI = require("./Controller/AddressController/AddressController")
 const CheckOutRoute = require("./Controller/OrderController/OrderController")
-const messageRoute = require("./Controller/ChatMessageController/MessageController");
+const UsersRoute = require("./Controller/UserController/UserController")
+ const messageRoute = require("./Controller/ChatMessageController/MessageController");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const SqlDbconnect = require("./DB/SqlDb");
@@ -37,6 +38,7 @@ app.use("/api/v1/",category);
 app.use("/api/v1/",cartRoute );
 app.use("/api/v1/",AddressAPI)
 app.use("/api/v1/",CheckOutRoute)
+app.use("/api/v1/",UsersRoute)
 // app.use("/api/v1/", messageRoute);
 
 

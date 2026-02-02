@@ -9,6 +9,11 @@ const LoginUserSchema = new mongoose.Schema({
     trim: true,
     minlength: 3,
   },
+  
+   phonenumber:{
+        type:String,
+        trim:true
+   },
 
    username: {
     type: String,
