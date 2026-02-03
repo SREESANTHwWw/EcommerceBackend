@@ -9,10 +9,11 @@ const cartRoute =require("./Controller/CartController/CartController")
 const AddressAPI = require("./Controller/AddressController/AddressController")
 const CheckOutRoute = require("./Controller/OrderController/OrderController")
 const UsersRoute = require("./Controller/UserController/UserController")
- const messageRoute = require("./Controller/ChatMessageController/MessageController");
+const Health =require("./Controller/HealthController/Health")
+//  const messageRoute = require("./Controller/ChatMessageController/MessageController");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-const SqlDbconnect = require("./DB/SqlDb");
+// const SqlDbconnect = require("./DB/SqlDb");
 
 dotenv.config();
 const express = require("express");
@@ -32,6 +33,7 @@ app.use("/check", (req, res) => {
   res.send("Server is running");
 });
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/api/v1",Health)
 app.use("/api/v1/", loginRoute);
 app.use("/api/v1/", productRoute);
 app.use("/api/v1/",category);
@@ -39,7 +41,8 @@ app.use("/api/v1/",cartRoute );
 app.use("/api/v1/",AddressAPI)
 app.use("/api/v1/",CheckOutRoute)
 app.use("/api/v1/",UsersRoute)
-// app.use("/api/v1/", messageRoute);
+
+
 
 
 

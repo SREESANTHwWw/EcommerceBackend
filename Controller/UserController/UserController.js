@@ -108,7 +108,7 @@ Router.patch("/users/edit", authMiddleware, async (req, res) => {
     if (lastname) updateData.lastname = lastname;
     if (username) updateData.username = username;
       if (phonenumber) updateData.phonenumber = phonenumber;
-    // 🚫 Explicitly block sensitive fields
+  
     if (req.body.email || req.body.password) {
       return res.status(400).json({
         success: false,
