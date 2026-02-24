@@ -57,6 +57,13 @@ const LoginUserSchema = new mongoose.Schema({
     enum: ["local", "google"],
     default: "local",
   },
+   
+ status: {
+  type: String,
+  enum: ["active", "blocked", "disabled"],
+  default: "active",
+},
+
 
   terms: {
     type: Boolean,
@@ -66,6 +73,10 @@ const LoginUserSchema = new mongoose.Schema({
   isVerified: {
     type: Boolean,
     default: false,
+  },
+   lastActive: {
+    type: Date,
+    default: null,
   },
 
   registerToken: {

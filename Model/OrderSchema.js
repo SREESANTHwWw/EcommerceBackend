@@ -12,11 +12,12 @@ const orderSchema = new mongoose.Schema({
     {
       productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product", required: true },
       name: { type: String, required: true },
-      image:{type:String,required: true }    ,       
+      image:{type:String,required: true }    ,  
+      stock:  {type:Number,required: true } ,   
       qty: { type: Number, required: true, min: 1 },
       price: { type: Number, required: true },          
       total: { type: Number, required: true },          
-                            
+                             
     },
   ],
 
@@ -56,7 +57,7 @@ const orderSchema = new mongoose.Schema({
 
   orderStatus: {
     type: String,
-    enum: ["PLACED", "PROCESSING", "SHIPPED", "OUT_FOR_DELIVERY", "DELIVERED", "CANCELLED", "RETURNED"],
+    enum: ["PLACED", "PROCESSING", "SHIPPED", "OUT_FOR_DELIVERY", "DELIVERED", "CANCELLED",],
     default: "PLACED",
   },
   tracking: [

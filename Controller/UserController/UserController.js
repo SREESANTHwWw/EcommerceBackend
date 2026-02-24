@@ -6,12 +6,48 @@ const Router = express.Router();
 
 
 Router.get("/users", authMiddleware, async (req, res) => {
-  try {
-    const users = await userLoginModel.find().select("-password");
 
-    return res.status(200).json({
+
+  try {
+
+     const page =parseInt(req.query.page) || 1
+     const limit = parseInt(req.query.limit) || 10
+     const skip = (page - 1) * limit
+     const {search ,role ,status} = req.query
+      
+     let filter ={}
+
+     if(search){
+       filter.$or = [
+          { firstname:{$regex:search,$options:"i"}},
+           { email:{$regex:search,$options:"i"}}
+       ]
+     }
+
+     if(role){
+      filter.role = role
+     }
+     if(status){
+      filter.status =status
+     }
+
+
+    const users = await userLoginModel
+      .find(filter)
+      .select("-password")
+      .sort({ lastActive: -1 })
+      .skip(skip)
+      .limit(limit);
+ const totalUsers = await userLoginModel.countDocuments(filter);
+
+     return res.status(200).json({
       success: true,
-      count: users.length,
+      pagination: {
+        total: totalUsers,
+        page,
+        limit,
+        totalPages: Math.ceil(totalUsers / limit),
+      },
       users,
     });
   } catch (error) {

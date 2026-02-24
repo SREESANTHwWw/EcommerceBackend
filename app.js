@@ -9,16 +9,21 @@ const cartRoute =require("./Controller/CartController/CartController")
 const AddressAPI = require("./Controller/AddressController/AddressController")
 const CheckOutRoute = require("./Controller/OrderController/OrderController")
 const UsersRoute = require("./Controller/UserController/UserController")
+
 const Health =require("./Controller/HealthController/Health")
+const Savelater = require("./Controller/SaveLaterController/SaveLaterController")
 //  const messageRoute = require("./Controller/ChatMessageController/MessageController");
 const cookieParser = require("cookie-parser");
+const http = require("http");
 const path = require("path");
 // const SqlDbconnect = require("./DB/SqlDb");
 
 dotenv.config();
 const express = require("express");
 const app = express();
-
+const server = http.createServer(app);
+const {initSocket} =require("./config/InitSocket")
+initSocket(server)
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors());
@@ -41,6 +46,7 @@ app.use("/api/v1/",cartRoute );
 app.use("/api/v1/",AddressAPI)
 app.use("/api/v1/",CheckOutRoute)
 app.use("/api/v1/",UsersRoute)
+app.use("/api/v1",Savelater)
 
 
 
@@ -52,7 +58,7 @@ const start = async () => {
   try {
     await connectDB();
   
-    app.listen(process.env.PORT ,() => {
+    server.listen(process.env.PORT ,() => {
       console.log(`🚀 Server running on port ${process.env.PORT}`);
     });
   } catch (error) {

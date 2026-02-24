@@ -208,6 +208,7 @@ router.post("/auth/register", async (req, res) => {
       email: emailFromToken,
       password: hashedPassword,
       firstname,
+       status:"active",
       lastname,
       terms,
       username,
@@ -247,6 +248,7 @@ router.post("/auth/googleAuth", async (req, res) => {
       user = await userLoginModel.create({
         firstname,
         email,
+        status:"active",
         username,
         provider: "google",
         terms: true,
@@ -263,6 +265,7 @@ router.post("/auth/googleAuth", async (req, res) => {
       token,
       user: {
         id: user._id,
+        status:user.status,
         email: user.email,
         firstname: user.firstname,
         
@@ -315,7 +318,8 @@ router.post("/auth/login", loginLimiter, async (req, res) => {
         id: user._id,
         email: user.email,
         firstname: user.firstname,
-        role:user.role
+        role:user.role,
+        status:user.status
       },
     });
   } catch (error) {

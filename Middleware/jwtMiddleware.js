@@ -1,5 +1,6 @@
 // middlewares/authMiddleware.js
 const jwt = require("jsonwebtoken");
+const userLoginModel = require("../Model/userLoginModel");
 
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -14,6 +15,9 @@ const authMiddleware = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET); 
     req.user = decoded; 
+      userLoginModel.findByIdAndUpdate(decoded.id, {
+      lastActive: new Date(),
+    }).exec();
     next();
   } catch (err) {
     return res.status(401).json({ failed:true, err: "Invalid or expired token" });
